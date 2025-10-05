@@ -11,8 +11,8 @@
         <div class="text-lg font-bold">Shopify Integration</div>
         <div class="flex items-center gap-4">
             <a href="{{ route('dashboard') }}" class="text-blue-600 hover:underline">Dashboard</a>
-            <a href="{{ route('shopify.products') }}" class="text-blue-600 hover:underline">Productos</a>
-            <a href="{{ route('shopify.orders30d') }}" class="text-blue-600 hover:underline">Órdenes</a>
+            <a href="{{ route('shopify.products') }}" class="text-blue-600 hover:underline">Products</a>
+            <a href="{{ route('shopify.orders30d') }}" class="text-blue-600 hover:underline">Orders</a>
             <form action="{{ route('logout') }}" method="POST">
                 @csrf
                 <button class="text-red-600 hover:underline">Logout</button>

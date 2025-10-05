@@ -33,9 +33,7 @@ class ShopifyClient
     // Productos
     public function getProducts(array $params = [])
     {
-        
         return $this->http()->get($this->baseUrl().'/products.json', $params)->throw()->json();
-        
     }
 
     
@@ -47,7 +45,7 @@ class ShopifyClient
             'status' => 'any',
             'created_at_min' => $createdAtMin,
             'limit' => 50, 
-            'fields' => 'id,created_at,total_price,financial_status,currency'
+            'fields' => 'id,created_at,total_price,financial_status,currency,customer,line_items'
         ];
         
         $res = $this->http()->get($this->baseUrl().'/orders.json', $params);

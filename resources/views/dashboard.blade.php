@@ -3,14 +3,13 @@
 @section('title', 'Dashboard')
 
 @section('content')
-    <h1 class="text-2xl font-bold mb-6 text-white">Bienvenido, {{ auth()->user()->name ?? 'Invitado' }}</h1>
+    <h1 class="text-2xl font-bold mb-6 text-white">Welcome, {{ auth()->user()->name ?? 'Invitado' }}</h1>
     @if (!$haveProducts && auth()->user()->name === null )
     <div class="space-y-4">
         <a href="{{ route('shopify.install') }}" 
            class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
-            Conecta tu tienda de Shopify
+            Conect to Shopify
         </a>
-        <p class="text-gray-400 pt-3">Una vez conectado, podrás ver tus productos y órdenes aquí.</p>
     </div>
     @else
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
@@ -23,6 +22,7 @@
                 <p class="text-gray-600 text-sm">
                     {{ $product['variants'][0]['price'] ?? '—' }} {{ $product['variants'][0]['currency'] ?? '' }}
                 </p>
+                <span>sku: {{ $product['variants'][0]['sku'] ?? '-' }}</span>
             </div>
         @endforeach
     </div>

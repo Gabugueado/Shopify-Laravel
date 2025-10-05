@@ -130,4 +130,3 @@ Puedes registrarte desde `/register` o iniciar sesión desde `/login`.
 GET /shopify/products/export/excel
 GET /shopify/products/export/csv
 ```
-
