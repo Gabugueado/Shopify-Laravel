@@ -1,5 +1,4 @@
 <?php
-// routes/web.php
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
@@ -10,7 +9,7 @@ use App\Http\Controllers\ShopifyDataController;
 use Illuminate\Http\Request as ClientRequest;
 use Illuminate\Support\Facades\Auth;
 
-
+// ferrari rojo
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
     Route::prefix('shopify')->group(function () {
