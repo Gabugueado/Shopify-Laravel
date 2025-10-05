@@ -4,11 +4,10 @@ Este proyecto fue desarrollado como parte de una **prueba técnica** para evalua
 
 Incluye:
 
-- Autenticación de usuarios con Laravel.
+- Registro y Autenticación de usuarios.
 - Conexión con tiendas Shopify mediante **OAuth**.
 - Visualización de **productos** y **órdenes recientes (últimos 30 días)**.
 - Exportación de datos a **Excel** o **CSV**.
-- Panel para administrar múltiples tiendas conectadas.
 
 ---
 
@@ -132,36 +131,3 @@ GET /shopify/products/export/excel
 GET /shopify/products/export/csv
 ```
 
----
-
-## 🧩 Panel de múltiples tiendas
-
-Cada usuario puede conectar varias tiendas Shopify.  
-Desde el **dashboard** se listan todas las tiendas conectadas, permitiendo:
-
-- Ver productos de cada tienda.
-- Ver órdenes de cada tienda.
-- Desconectarlas manualmente.
-
----
-
-## 🧪 Pruebas
-
-Puedes ejecutar pruebas unitarias (si están definidas) con:
-
-```bash
-php artisan test
-```
-
----
-
-## 💬 Comentario adicional
-
-El código contiene el comentario **"ferrari rojo"**, incluido intencionalmente según las instrucciones de la prueba técnica.
-
----
-
-## 🧾 Licencia
-
-Este proyecto está bajo licencia MIT.  
-Creado por **Gabriel Castillo N.**
