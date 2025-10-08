@@ -15,8 +15,9 @@ Route::middleware('auth')->group(function () {
     Route::prefix('shopify')->group(function () {
         Route::get('/install', [ShopifyAuthController::class, 'install'])->name('shopify.install');
         Route::get('/callback', [ShopifyAuthController::class, 'callback'])->name('shopify.callback');
-        Route::get('/products', [ShopifyDataController::class, 'products'])->name('shopify.products');
-        Route::get('/orders-30d', [ShopifyDataController::class, 'ordersLast30Days'])->name('shopify.orders30d');
+        Route::get('/products/{shop}', [ShopifyDataController::class, 'products'])->name('shopify.products');
+        Route::get('/orders-30d/{shop}', [ShopifyDataController::class, 'ordersLast30Days'])->name('shopify.orders30d');
+        Route::get('/stores', [ShopifyDataController::class, 'stores'])->name('shopify.stores');
     });
 });
 

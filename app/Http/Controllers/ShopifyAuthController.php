@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use App\Models\Shop;
+use Illuminate\Support\Facades\Auth;
 
 class ShopifyAuthController extends Controller
 {
@@ -13,7 +14,6 @@ class ShopifyAuthController extends Controller
     {
         $request->validate(['shop' => 'required|string']);
         $shop = $request->query('shop');
-
         $state = Str::random(32);
         session(['shopify_oauth_state' => $state]);
 
@@ -23,7 +23,6 @@ class ShopifyAuthController extends Controller
             'redirect_uri' => env('SHOPIFY_REDIRECT_URI'),
             'state'        => $state,
         ]);
-
         return redirect("https://{$shop}/admin/oauth/authorize?{$query}");
 
     }
@@ -44,11 +43,16 @@ class ShopifyAuthController extends Controller
 
         $payload = $resp->json();
 
-        Shop::updateOrCreate(
+        $shop = Shop::updateOrCreate(
             ['shop_domain' => $shop],
-            ['access_token' => $payload['access_token'], 'scope' => $payload['scope'] ?? null]
+            [
+                'access_token' => $payload['access_token'],
+                'scope' => $payload['scope'] ?? null,
+                'user_id' => Auth::id(),
+            ]
         );
-
-        return redirect()->route('shopify.products')->with('ok', 'Tienda conectada');
+        return redirect()
+                ->route('shopify.products', ['shop' => $shop->id])
+                ->with('ok', 'Store connected');
     }
 }

@@ -9,11 +9,12 @@ class ShopifyClient
 {
     public function __construct(private Shop $shop) {}
 
-    public static function for(string $shopDomain): self
-    {
-        $shop = Shop::where('shop_domain', $shopDomain)->firstOrFail();
-        return new self($shop);
-    }
+    // public static function for(string $shopDomain, ?string $accesToken): self
+    // {
+    //     $shop = Shop::where('shop_domain', $shopDomain)->firstOrFail();
+    //     $shop->access_token = $accesToken ?? $shop->access_token;
+    //     return new self($shop);
+    // }
 
     private function baseUrl(): string
     {
@@ -60,5 +61,10 @@ class ShopifyClient
         }
         
         return $res->json();
+    }
+    public static function fromShopId(int $shopId): self
+    {
+        $shop = Shop::findOrFail($shopId);
+        return new self($shop);
     }
 }

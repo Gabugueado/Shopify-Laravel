@@ -4,14 +4,14 @@
 @section('title', 'orders shopify')
 
 @section('content')
-    <h1 class="text-2xl font-bold mb-6">Last Orders 30 days</h1>
+    <h1 class="text-2xl font-bold mb-6 text-white">Last Orders 30 days</h1>
 
     @php
         $items = $orders['orders'] ?? [];
     @endphp
 
     @if (empty($items))
-        <p>There's nothing to show</p>
+        <p class="text-white">There's nothing to show</p>
     @else
         <div class="overflow-x-auto">
             <table class="min-w-full bg-white border border-gray-200 rounded-lg shadow-sm">

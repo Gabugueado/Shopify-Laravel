@@ -34,8 +34,7 @@ class LoginController {
         // Si todo está bien, iniciamos sesión
         Auth::login($user);
         $request->session()->regenerate();
-
-        return redirect()->intended('/dashboard');
+        return redirect()->route('dashboard');
     }
 
     public function showLoginForm() {

@@ -6,43 +6,41 @@ use App\Services\ShopifyClient;
 use App\Models\Shop;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\ProductsExport;
+use Illuminate\Support\Facades\Auth;
 
 class ShopifyDataController extends Controller
 {
-    private function shopDomain(): string {
-        return Shop::query()->value('shop_domain');
-    }
-
-    public function products()
+    public function products($shopId)
     {
-        $client = ShopifyClient::for($this->shopDomain());
+        $client = ShopifyClient::fromShopId($shopId);
         $products = $client->getProducts(['limit' => 50]);
         return view('shopify.products', compact('products'));
     }
     
-    
-    public function ordersLast30Days()
+    public function ordersLast30Days($shopId)
     {
-        $client = ShopifyClient::for($this->shopDomain());
+        $client = ShopifyClient::fromShopId($shopId);
         $orders = $client->getOrdersLast30Days();
         return view('shopify.orders', compact('orders'));
     }
-    public function exportExcel()
+
+    public function exportExcel($shopId)
     {
-        $data = $this->getProductsData();
+        $client = ShopifyClient::fromShopId($shopId);
+        $data = $client->getProducts();
         return Excel::download(new ProductsExport($data), 'productos.xlsx');
     }
 
-    public function exportCsv()
+    public function exportCsv($shopId)
     {
-        $data = $this->getProductsData();
+        $client = ShopifyClient::fromShopId($shopId);
+        $data = $client->getProducts();
         return Excel::download(new ProductsExport($data), 'productos.csv', \Maatwebsite\Excel\Excel::CSV);
     }
 
-    private function getProductsData(): array 
+    public function stores ()
     {
-        $client = ShopifyClient::for($this->shopDomain());
-        $products = $client->getProducts();
-        return $products; 
+        $stores = Shop::where('user_id', Auth::id())->get();
+        return view('shopify.stores', compact('stores'));
     }
-}
+}   
